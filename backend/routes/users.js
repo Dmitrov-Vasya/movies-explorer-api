@@ -9,7 +9,7 @@ router.get('/me', getUsersData);
 router.patch(
   '/me',
   celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
+    [Segments.BODY]: Joi.object().keys({
       name: Joi.string().min(2).max(30).required(),
       email: Joi.string().required().email(),
     }),

@@ -8,8 +8,8 @@ module.exports = (req, res, next) => {
     if (!token) {
       return next(new AuthorizationError('Необходима авторизация'));
     }
-    req.user = reqUser;
     const reqUser = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : '1j6obWGoaMlgdIxvjvBHZFTI');
+    req.user = reqUser;
     return next();
   } catch (err) {
     return next(new AuthorizationError('Необходима авторизация'));

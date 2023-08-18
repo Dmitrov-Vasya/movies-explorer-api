@@ -6,9 +6,9 @@ const BadRequest = require('../errors/BadRequest');
 const AlreadyExists = require('../errors/AlreadyExists');
 
 const login = (req, res, next) => {
-  const { email, password, name } = req.body;
+  const { email, password } = req.body;
   const { NODE_ENV, JWT_SECRET } = process.env;
-  User.findUserByCredentials(email, password, name)
+  User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : '1j6obWGoaMlgdIxvjvBHZFTI', {
         expiresIn: '7d',

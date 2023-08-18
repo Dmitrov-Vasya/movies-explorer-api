@@ -1,5 +1,7 @@
 const Movie = require('../models/movie');
 const BadRequest = require('../errors/BadRequest');
+const NotFoundError = require('../errors/NotFoundError');
+const AccessError = require('../errors/AccessError');
 
 const getMovies = (req, res, next) => {
   Movie.find({})
@@ -10,10 +12,10 @@ const getMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId } = req.body;
+  const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId } = req.body;
   const owner = req.user._id;
 
-  Card.create({ country,owner, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId })
+  Movie.create({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId, owner })
     .then((movie) => {
       res.status(200).send(movie);
     })
@@ -27,10 +29,10 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  const { movieId } = req.params;
+  const { id } = req.params;
   const currentUser = req.user._id;
 
-  Card.findById(movieId)
+  Movie.findById(id)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Карточка не найдена');

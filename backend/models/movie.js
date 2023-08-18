@@ -15,7 +15,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   year: {
-    type: String,
+    type: Number,
     required: true,
   },
   description: {
@@ -26,7 +26,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (url) => validator.isUrl(url),
+      validator: (url) => validator.isURL(url),
       message: 'Введен некорректный url',
     },
   },
@@ -34,7 +34,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (url) => validator.isUrl(url),
+      validator: (url) => validator.isURL(url),
       message: 'Введен некорректный url',
     },
   },
@@ -42,7 +42,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (url) => validator.isUrl(url),
+      validator: (url) => validator.isURL(url),
       message: 'Введен некорректный url',
     },
   },
