@@ -33,11 +33,11 @@ const logout = (req, res) => {
 const createUser = async (req, res, next) => {
   try {
     const {
-       email, password, name
+      email, password, name,
     } = req.body;
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({
-       email, password: hash, name
+      email, password: hash, name,
     });
     user.password = undefined;
     res.status(200).send({ data: user });
@@ -46,7 +46,7 @@ const createUser = async (req, res, next) => {
     if (err.code === 11000) {
       next(new AlreadyExists('email уже существует'));
     } else if (err.name === 'ValidationError') {
-      next(new BadRequest('Ошибка валидации'));
+      next(new BadRequest('Переданы некорректные данные'));
     } else {
       next(err);
     }
@@ -90,6 +90,5 @@ const updateProfile = (req, res, next) => {
 };
 
 module.exports = {
-  getUsersData, updateProfile,login,logout,createUser
+  getUsersData, updateProfile, login, logout, createUser,
 };
-

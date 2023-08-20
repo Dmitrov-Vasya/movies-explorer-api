@@ -1,13 +1,12 @@
 const router = require('express').Router();
-const {
-  celebrate, Joi, Segments,
-} = require('celebrate');
 
 const NotFoundError = require('../errors/NotFoundError');
-const { login,createUser, logout } = require('../controllers/users')
+const { login, createUser, logout } = require('../controllers/users');
+const { validateLogin, validateCreateUser } = require('../utils/validate');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const auth = require('../middlewares/auth');
+
 router.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
@@ -17,12 +16,7 @@ router.get('/crash-test', () => {
 // без проверки авторизации
 router.post(
   '/signin',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required(),
-    }),
-  }),
+  validateLogin,
   login,
 );
 
@@ -30,13 +24,7 @@ router.get('/signout', logout);
 
 router.post(
   '/signup',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      name: Joi.string().min(2).max(30),
-      email: Joi.string().required().email(),
-      password: Joi.string().required(),
-    }),
-  }),
+  validateCreateUser,
   createUser,
 );
 
