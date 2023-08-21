@@ -81,8 +81,10 @@ const updateProfile = (req, res, next) => {
       res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequest('Переданы некорректные данные при создании пользователя'));
+      if (err.code === 11000) {
+        next(new AlreadyExists('email уже существует'));
+      } else if (err.name === 'ValidationError') {
+        next(new BadRequest('Ошибка валидации'));
       } else {
         next(err);
       }
