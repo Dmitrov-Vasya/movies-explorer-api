@@ -30,16 +30,28 @@ const logout = (req, res) => {
     .status(200).send({ message: 'Выход прошел успешно' });
 };
 
-const createUser = async (req, res, next) => {
+const registration = async (req, res, next) => {
   try {
     const {
       email, password, name,
     } = req.body;
     const hash = await bcrypt.hash(password, 10);
+    const { NODE_ENV, JWT_SECRET } = process.env;
     const user = await User.create({
       email, password: hash, name,
     });
-    user.password = undefined;
+
+    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : '1j6obWGoaMlgdIxvjvBHZFTI', {
+      expiresIn: '7d',
+    });
+
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      sameSite: 'none',
+      // secure: NODE_ENV === 'production',
+    })
+      .status(200).send({ message: 'Авторизация прошла успешна' });
+
     res.status(200).send({ data: user });
   } catch (err) {
     // E11000 duplicate key error collection
@@ -92,5 +104,5 @@ const updateProfile = (req, res, next) => {
 };
 
 module.exports = {
-  getUsersData, updateProfile, login, logout, createUser,
+  getUsersData, updateProfile, login, logout, registration,
 };

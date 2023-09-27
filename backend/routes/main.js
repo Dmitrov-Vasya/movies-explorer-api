@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const NotFoundError = require('../errors/NotFoundError');
-const { login, createUser, logout } = require('../controllers/users');
+const { login, registration, logout } = require('../controllers/users');
 const { validateLogin, validateCreateUser } = require('../utils/validate');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
@@ -25,7 +25,7 @@ router.get('/signout', logout);
 router.post(
   '/signup',
   validateCreateUser,
-  createUser,
+  registration,
 );
 
 // с проверкой авторизации
