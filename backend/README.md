@@ -2,5 +2,5 @@ API для аутентификации пользователей и сохра
 
 URL: api.movies.dmitrov.ru .nomoreparties.co
 
-IP: 158.160.104.197
+IP: 158.160.113.149
 
