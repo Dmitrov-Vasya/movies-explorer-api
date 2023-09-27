@@ -47,7 +47,7 @@ const registration = async (req, res, next) => {
 
     res.cookie('access_token', token, {
       httpOnly: true,
-      sameSite: 'none',
+      // sameSite: 'none',
       // secure: NODE_ENV === 'production',
     })
       .status(200).send({ message: 'Авторизация прошла успешна' });
