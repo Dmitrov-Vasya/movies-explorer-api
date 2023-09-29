@@ -1,6 +1,6 @@
 API для аутентификации пользователей и сохранения фильмов
 
-URL: api.movies.dmitrov.ru .nomoreparties.co
+URL: api.movies.dmitrov.ru.nomoredomainsrocks.ru
 
-IP: 158.160.113.149
+IP: 158.160.124.169
 

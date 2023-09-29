@@ -1,8 +1,7 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'http://api.movies.dmitrov.ru.nomoreparties.co',
-  'http://158.160.113.149',
-  'https://api.movies.dmitrov.ru.nomoreparties.co',
+  'http://api.movies.dmitrov.ru.nomoredomainsrocks.ru',
+  'https://api.movies.dmitrov.ru.nomoredomainsrocks.ru',
   'https://localhost:3001',
   'http://localhost:3001',
   'https://localhost:3000',
